@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
@@ -9,9 +9,6 @@ import { Input } from '@/components/ui/Input';
 import { ArrowLeft, Save, Eye, Send, X } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { useToast } from '@/lib/toast';
-
-// Force dynamic rendering since we use useSearchParams
-export const dynamic = 'force-dynamic';
 
 const templateCategories = [
   'Login Credentials',
@@ -34,7 +31,7 @@ const availableVariables = [
   { label: 'Custom Message', value: '{{custom_message}}' },
 ];
 
-export default function CreateTemplatePage() {
+function CreateTemplateForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const templateId = searchParams?.get('id') || null;
@@ -270,5 +267,20 @@ export default function CreateTemplatePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CreateTemplatePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <CreateTemplateForm />
+    </Suspense>
   );
 }
