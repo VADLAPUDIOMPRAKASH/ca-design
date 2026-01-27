@@ -95,7 +95,7 @@ export default function SendEmailPage() {
         recipientsCount: selectedRecipients.length,
         scheduleDate: scheduleDateTime,
         status: 'Pending',
-        type: sendOption,
+        type: sendOption === 'recurring' ? 'recurring' : 'scheduled',
         repeatFrequency: sendOption === 'recurring' ? formData.repeatFrequency : undefined,
         body: formData.body,
       });
