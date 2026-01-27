@@ -10,6 +10,9 @@ import { ArrowLeft, Save, Eye, Send, X } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { useToast } from '@/lib/toast';
 
+// Force dynamic rendering since we use useSearchParams
+export const dynamic = 'force-dynamic';
+
 const templateCategories = [
   'Login Credentials',
   'Notifications',
@@ -34,7 +37,7 @@ const availableVariables = [
 export default function CreateTemplatePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const templateId = searchParams.get('id');
+  const templateId = searchParams?.get('id') || null;
   const { templates, addTemplate, updateTemplate } = useApp();
   const { showToast } = useToast();
   
