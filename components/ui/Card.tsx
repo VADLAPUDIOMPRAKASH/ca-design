@@ -7,6 +7,8 @@ interface CardProps {
   padding?: 'sm' | 'md' | 'lg' | 'none';
 }
 
+export type { CardProps };
+
 export const Card: React.FC<CardProps> = ({
   children,
   className,
