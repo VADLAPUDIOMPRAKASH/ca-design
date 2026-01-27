@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 interface CardProps {
   children: React.ReactNode;
   className?: string;
-  padding?: 'sm' | 'md' | 'lg';
+  padding?: 'sm' | 'md' | 'lg' | 'none';
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -16,6 +16,7 @@ export const Card: React.FC<CardProps> = ({
     sm: 'p-4',
     md: 'p-6',
     lg: 'p-8',
+    none: '',
   };
   
   return (
