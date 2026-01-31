@@ -2,7 +2,6 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import {
@@ -19,13 +18,12 @@ import { format } from 'date-fns';
 import { useApp } from '@/context/AppContext';
 import { useToast } from '@/lib/toast';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { SkeletonClientCard } from '@/components/ui/Skeleton';
+import { SkeletonClientCard, SkeletonTable } from '@/components/ui/Skeleton';
 
 type SortField = 'name' | 'companyName' | 'addedDate';
 type SortOrder = 'asc' | 'desc';
 
 export default function ClientsPage() {
-  const router = useRouter();
   const { clients, updateClient } = useApp();
   const { showToast } = useToast();
   

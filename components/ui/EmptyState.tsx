@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { LucideIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Button } from './Button';
 
 interface EmptyStateProps {
@@ -13,6 +14,7 @@ interface EmptyStateProps {
   onAction?: () => void;
   actionHref?: string;
   children?: React.ReactNode;
+  className?: string;
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = ({
@@ -23,8 +25,9 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   onAction,
   actionHref,
   children,
+  className,
 }) => (
-  <div className="flex flex-col items-center justify-center py-8 px-4 text-center">
+  <div className={cn('flex flex-col items-center justify-center py-8 px-4 text-center', className)}>
     <div className="w-12 h-12 rounded-xl bg-surface-subtle flex items-center justify-center mb-3 text-text-muted">
       <Icon size={24} strokeWidth={1.5} />
     </div>
