@@ -5,6 +5,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   helperText?: string;
+  size?: 'default' | 'compact';
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -13,14 +14,22 @@ export const Input: React.FC<InputProps> = ({
   helperText,
   className,
   id,
+  size = 'default',
   ...props
 }) => {
   const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+  const isCompact = size === 'compact';
   
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={inputId} className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor={inputId}
+          className={cn(
+            'block font-medium text-text-primary',
+            isCompact ? 'text-xs mb-0.5' : 'text-sm mb-1'
+          )}
+        >
           {label}
           {props.required && <span className="text-danger ml-1">*</span>}
         </label>
@@ -28,19 +37,20 @@ export const Input: React.FC<InputProps> = ({
       <input
         id={inputId}
         className={cn(
-          'w-full px-4 py-2 border rounded-button focus:outline-none focus:ring-2 focus:ring-offset-0 transition-all',
+          'w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-0 focus-visible:ring-2 transition-all',
+          isCompact ? 'px-3 py-2 text-sm min-h-[36px]' : 'px-4 py-2.5 min-h-[44px]',
           error
             ? 'border-danger focus:ring-danger focus:border-danger'
-            : 'border-gray-300 focus:ring-primary focus:border-transparent',
+            : 'border-border focus:ring-primary/40 focus:border-transparent focus-visible:ring-2',
           className
         )}
         {...props}
       />
       {error && (
-        <p className="mt-1 text-sm text-danger">{error}</p>
+        <p className={cn('mt-0.5 text-danger', isCompact ? 'text-xs' : 'text-sm')}>{error}</p>
       )}
       {helperText && !error && (
-        <p className="mt-1 text-sm text-gray-500">{helperText}</p>
+        <p className={cn('mt-0.5 text-text-muted', isCompact ? 'text-xs' : 'text-sm')}>{helperText}</p>
       )}
     </div>
   );

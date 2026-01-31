@@ -1,16 +1,22 @@
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Mail, FileText, Send, Clock } from 'lucide-react';
+import { Mail, FileText, Send, Clock, Inbox } from 'lucide-react';
 
 export default function EmailsPage() {
   const emailActions = [
+    {
+      title: 'Inbox',
+      description: 'View emails received from clients',
+      icon: Inbox,
+      href: '/emails/inbox',
+      color: 'text-primary',
+    },
     {
       title: 'Templates',
       description: 'Create and manage email templates',
       icon: FileText,
       href: '/emails/templates',
-      color: 'text-primary',
+      color: 'text-secondary',
     },
     {
       title: 'Send Email',
@@ -30,19 +36,19 @@ export default function EmailsPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Email Management</h1>
+      <h1 className="text-xl sm:text-2xl font-bold text-text-primary mb-4">Email Management</h1>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
         {emailActions.map((action) => {
           const Icon = action.icon;
           return (
             <Link key={action.href} href={action.href}>
-              <Card className="hover:shadow-md transition-shadow cursor-pointer h-full">
-                <div className={`p-3 bg-gray-50 rounded-lg w-fit mb-4 ${action.color}`}>
-                  <Icon size={24} />
+              <Card padding="sm" className="hover:shadow-elevated transition-shadow duration-comfort cursor-pointer h-full">
+                <div className={`p-2 bg-surface-subtle rounded-lg w-fit mb-2 ${action.color}`}>
+                  <Icon size={20} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{action.title}</h3>
-                <p className="text-sm text-gray-600">{action.description}</p>
+                <h3 className="text-base font-semibold text-text-primary mb-1">{action.title}</h3>
+                <p className="text-xs text-text-muted">{action.description}</p>
               </Card>
             </Link>
           );

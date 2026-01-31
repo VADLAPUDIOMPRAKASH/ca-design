@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/Input';
 import { ArrowLeft, Save, Eye, Send, X } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { useToast } from '@/lib/toast';
+import { TEMPLATE_VARIABLES, SAMPLE_TEMPLATE_DATA, replaceTemplateVariables } from '@/lib/templateUtils';
 
 const templateCategories = [
   'Login Credentials',
@@ -17,18 +18,6 @@ const templateCategories = [
   'Reminders',
   'General',
   'Custom',
-];
-
-const availableVariables = [
-  { label: 'Client Name', value: '{{client_name}}' },
-  { label: 'Company Name', value: '{{company_name}}' },
-  { label: 'Email', value: '{{email}}' },
-  { label: 'Phone', value: '{{phone}}' },
-  { label: 'Username', value: '{{username}}' },
-  { label: 'Password', value: '{{password}}' },
-  { label: 'Login Link', value: '{{login_link}}' },
-  { label: 'Date', value: '{{date}}' },
-  { label: 'Custom Message', value: '{{custom_message}}' },
 ];
 
 function CreateTemplateForm() {
@@ -51,22 +40,8 @@ function CreateTemplateForm() {
     setEmailBody((prev) => prev + variable);
   };
 
-  const sampleData = {
-    client_name: 'John Smith',
-    company_name: 'Smith Enterprises',
-    email: 'john@smith.com',
-    phone: '+91 9876543210',
-    username: 'johnsmith',
-    password: 'TempPass123!',
-    login_link: 'https://portal.example.com/login',
-    date: new Date().toLocaleDateString(),
-    custom_message: 'Your custom message here',
-  };
-
-  const previewBody = availableVariables.reduce((text, variable) => {
-    const key = variable.value.replace(/[{}]/g, '') as keyof typeof sampleData;
-    return text.replace(new RegExp(variable.value, 'g'), sampleData[key] || variable.value);
-  }, emailBody);
+  const previewSubject = replaceTemplateVariables(subject, SAMPLE_TEMPLATE_DATA);
+  const previewBody = replaceTemplateVariables(emailBody, SAMPLE_TEMPLATE_DATA);
 
   const handleSave = async () => {
     if (!templateName || !category || !subject || !emailBody) {
@@ -176,10 +151,7 @@ function CreateTemplateForm() {
 
               {showPreview ? (
                 <div className="border border-gray-300 rounded-lg p-4 bg-white min-h-[400px]">
-                  <div className="mb-2 text-sm font-medium text-gray-700">Subject: {previewBody.replace(/{{.*?}}/g, (match) => {
-                    const key = match.replace(/[{}]/g, '') as keyof typeof sampleData;
-                    return sampleData[key] || match;
-                  })}</div>
+                  <div className="mb-2 text-sm font-medium text-gray-700">Subject: {previewSubject}</div>
                   <div className="prose max-w-none">
                     <div dangerouslySetInnerHTML={{ __html: previewBody.replace(/\n/g, '<br />') }} />
                   </div>
@@ -252,7 +224,7 @@ function CreateTemplateForm() {
               Click on a variable to insert it into your email body
             </p>
             <div className="space-y-2">
-              {availableVariables.map((variable) => (
+              {TEMPLATE_VARIABLES.map((variable) => (
                 <button
                   key={variable.value}
                   onClick={() => insertVariable(variable.value)}

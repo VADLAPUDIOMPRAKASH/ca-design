@@ -15,15 +15,15 @@ export const Card: React.FC<CardProps> = ({
   padding = 'md',
 }) => {
   const paddingClasses = {
-    sm: 'p-4',
-    md: 'p-6',
-    lg: 'p-8',
+    sm: 'p-3',
+    md: 'p-4',
+    lg: 'p-5',
     none: '',
   };
   
   return (
     <div className={cn(
-      'bg-white rounded-card shadow-sm border border-gray-100',
+      'bg-surface rounded-card shadow-sm border-border',
       paddingClasses[padding],
       className
     )}>

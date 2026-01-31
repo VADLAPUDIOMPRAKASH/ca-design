@@ -65,17 +65,19 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="fixed top-20 right-4 z-50 space-y-2">
+      <div className="fixed bottom-4 left-3 right-3 sm:left-auto sm:right-4 sm:max-w-md z-50 flex flex-col gap-2" role="region" aria-label="Notifications">
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg min-w-[300px] max-w-md ${getBgColor(toast.type)} animate-in slide-in-from-right`}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl border shadow-elevated w-full sm:min-w-[300px] animate-slide-in-right ${getBgColor(toast.type)}`}
+            role="alert"
           >
             {getIcon(toast.type)}
-            <p className="flex-1 text-sm font-medium text-gray-900">{toast.message}</p>
+            <p className="flex-1 text-sm font-medium text-text-primary">{toast.message}</p>
             <button
               onClick={() => removeToast(toast.id)}
-              className="text-gray-400 hover:text-gray-600"
+              className="p-1 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface/80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2"
+              aria-label="Dismiss notification"
             >
               <X size={16} />
             </button>

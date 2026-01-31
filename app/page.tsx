@@ -25,21 +25,21 @@ export default function Home() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
+      <h1 className="text-xl sm:text-2xl font-bold text-text-primary mb-4">Dashboard</h1>
       
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-4">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (
-            <Card key={stat.label} padding="md">
+            <Card key={stat.label} padding="sm" className="hover:shadow-elevated transition-shadow duration-comfort">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
-                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                  <p className="text-xs text-text-muted mb-0.5">{stat.label}</p>
+                  <p className="text-lg font-bold text-text-primary">{stat.value}</p>
                 </div>
-                <div className={`p-3 rounded-lg bg-gray-50 ${stat.color}`}>
-                  <Icon size={24} />
+                <div className={`p-2 rounded-lg bg-gradient-to-br from-surface-subtle to-surface ${stat.color}`}>
+                  <Icon size={20} strokeWidth={2} />
                 </div>
               </div>
             </Card>
@@ -48,28 +48,34 @@ export default function Home() {
       </div>
 
       {/* Quick Actions */}
-      <Card>
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Card padding="md">
+        <h2 className="text-base font-semibold text-text-primary mb-3">Quick Actions</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
           <Link href="/clients/add">
-            <div className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors text-left cursor-pointer">
-              <Users className="text-primary mb-2" size={24} />
-              <p className="font-medium text-gray-900">Add New Client</p>
-              <p className="text-sm text-gray-500 mt-1">Onboard a new client</p>
+            <div className="p-3 bg-surface border border-border rounded-lg hover:border-primary hover:bg-primary/5 transition-all duration-comfort text-left cursor-pointer group">
+              <div className="p-2 bg-primary-light/50 rounded-md w-fit mb-2 group-hover:bg-primary-light transition-colors">
+                <Users className="text-primary" size={20} />
+              </div>
+              <p className="text-sm font-semibold text-text-primary group-hover:text-primary transition-colors">Add New Client</p>
+              <p className="text-xs text-text-muted">Onboard a new client</p>
             </div>
           </Link>
           <Link href="/emails/send">
-            <div className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors text-left cursor-pointer">
-              <Mail className="text-primary mb-2" size={24} />
-              <p className="font-medium text-gray-900">Send Email</p>
-              <p className="text-sm text-gray-500 mt-1">Compose and send email</p>
+            <div className="p-3 bg-surface border border-border rounded-lg hover:border-primary hover:bg-primary/5 transition-all duration-comfort text-left cursor-pointer group">
+              <div className="p-2 bg-primary-light/50 rounded-md w-fit mb-2 group-hover:bg-primary-light transition-colors">
+                <Mail className="text-primary" size={20} />
+              </div>
+              <p className="text-sm font-semibold text-text-primary group-hover:text-primary transition-colors">Send Email</p>
+              <p className="text-xs text-text-muted">Compose and send email</p>
             </div>
           </Link>
           <Link href="/clients">
-            <div className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors text-left cursor-pointer">
-              <FileText className="text-primary mb-2" size={24} />
-              <p className="font-medium text-gray-900">View Clients</p>
-              <p className="text-sm text-gray-500 mt-1">Manage all clients</p>
+            <div className="p-3 bg-surface border border-border rounded-lg hover:border-primary hover:bg-primary/5 transition-all duration-comfort text-left cursor-pointer group">
+              <div className="p-2 bg-primary-light/50 rounded-md w-fit mb-2 group-hover:bg-primary-light transition-colors">
+                <FileText className="text-primary" size={20} />
+              </div>
+              <p className="text-sm font-semibold text-text-primary group-hover:text-primary transition-colors">View Clients</p>
+              <p className="text-xs text-text-muted">Manage all clients</p>
             </div>
           </Link>
         </div>
